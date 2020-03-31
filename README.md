@@ -48,7 +48,7 @@ zeit-online url example: https://www.zeit.de/politik/ausland/2020-03/donald-trum
     - title = donald-trump-coronavirus-wirtschaft-usa-ostern
     - date = 2020-03
 2. '/article/{url}'
-    - url = https://www.zeit.de/politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern
+    - url = "politik\ausland\2020-03\donald-trump-coronavirus-wirtschaft-usa-ostern"
 3. '/test'
 
 ## Response [Donald Trump Article](https://www.zeit.de/politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern)

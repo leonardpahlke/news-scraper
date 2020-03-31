@@ -12,7 +12,7 @@ COMMENTS_COUNT = "comments_count"
 ARTICLE_TEXT = "article_text"
 
 
-# Store Article Information, designed to work with Zeit Online content Returns: WebsiteInformation -- access
+# Store Article Information, designed to work with zeit-online content Returns: WebsiteInformation -- access
 # information with variables, print information with method <print_information/0>
 class WebsiteInformation:
     # track_content contains all scrapped variables

@@ -34,7 +34,8 @@ def article(category: str, sub_category: str, title: str, date: str):
 # ? zeit-online url
 @app.get("/article/{url}")
 def article(url: str):
-    return _article(url=url)
+    url = url.replace("\\", "/")
+    return _article(path=url)
 
 
 # ? category, sub_category,  title
@@ -44,7 +45,7 @@ def test():
 
 
 def _article(path="", verbose=True, url=""):
-    content = run(TYPE_ARTICLE, path, verbose, url)
+    content = run(parse_type=TYPE_ARTICLE, path=path, verbose=verbose)
     if not verbose:
         print("\nAPI.PY ARTICLE INFORMATION\n\n")
         print(content)

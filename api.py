@@ -23,7 +23,7 @@ def read_root():
     return {"Routes": ["/article/{category}/{sub_category}/{title}/{date}", "/article/{url}", "/test"]}
 
 
-# ? zeitonline article url reference category, sub_category,  title, date
+# ? zeit-online article url reference category, sub_category,  title, date
 @app.get("/article/{category}/{sub_category}/{title}/{date}")
 def article(category: str, sub_category: str, title: str, date: str):
     if date is None:
@@ -31,7 +31,7 @@ def article(category: str, sub_category: str, title: str, date: str):
     return _article(path=category + "/" + sub_category + "/" + date + "/" + title)
 
 
-# ? zeitonline url
+# ? zeit-online url
 @app.get("/article/{url}")
 def article(url: str):
     return _article(url=url)

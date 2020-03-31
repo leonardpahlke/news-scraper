@@ -28,7 +28,7 @@ docker run -it --rm -p 8080:8080 news-scraper
 // open browser -> http://0.0.0.0:8080/docs   
 ```
 
-###FastAPI Info
+**FastAPI Info**
 information can be found on the [fastapi website](https://fastapi.tiangolo.com/) as well as the [github project](https://github.com/tiangolo/fastapi)
 ```javascript
 --reload // updates server resources when code changes are made

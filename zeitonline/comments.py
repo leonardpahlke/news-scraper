@@ -8,7 +8,7 @@ class ZeitOnlineParserComments:
     def __init__(self, html_document, verbose):
         self.verbose = verbose
         self.soup = BeautifulSoup(html_document, 'html.parser')
-        self.article_info = WebsiteInformation(verbose, [
+        self.comments_info = WebsiteInformation(verbose, [
 
         ])
         if not self.verbose:
@@ -17,4 +17,23 @@ class ZeitOnlineParserComments:
     # start parsing the website Returns: return WebsiteInformation -- parse website comments and store all found
     # information in the WebsiteInformation class
     def parse(self):
-        return self.article_info.get_track_content()
+        return self.comments_info.get_track_content()
+
+if __name__ == "__main__":
+    from requests_html import HTMLSession
+
+    url = "https://www.zeit.de/politik/ausland/2020-03/praesidentschaftswahl-polen-pis-coronavirus-pandemie"
+
+
+    def render_JS(URL):
+        session = HTMLSession()
+        r = session.get(URL)
+        r.html.render()
+        print(r.html.text)
+        return r.html.text
+
+
+    render_JS(url)
+
+    # page = requests.get(url)
+    # print(ZeitOnlineParserComments(str(page.text), False).parse())

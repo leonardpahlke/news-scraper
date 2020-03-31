@@ -1,4 +1,4 @@
-# Zeit Online Webscrapper
+# Zeit Online Webscraper
 
 ## Details
 

@@ -9,11 +9,11 @@ class ZeitOnlineParserNews:
     def __init__(self, html_document, verbose):
         self.verbose = verbose
         self.soup = BeautifulSoup(html_document, 'html.parser')
-        self.article_info = WebsiteInformation(verbose, [
+        self.news_info = WebsiteInformation(verbose, [
             NEWS_COUNT,
             NEWS_REFERENCES
         ])
-        self.article_info.track_content[NEWS_REFERENCES] = []
+        self.news_info.track_content[NEWS_REFERENCES] = []
         if not self.verbose:
             print("News Parser setup\n")
 
@@ -26,18 +26,11 @@ class ZeitOnlineParserNews:
         for news_teaser in news:
             if ("liveblog" not in news_teaser["href"]) & (not news_collected.__contains__(news_teaser["href"])):
                 news_collected.append(news_teaser["href"])
-                self.article_info.track_content[NEWS_REFERENCES].append({
+                self.news_info.track_content[NEWS_REFERENCES].append({
                     NEWS_LINK: news_teaser["href"],
                     NEWS_LINK_CONTENTS: news_teaser["href"].replace('https://www.zeit.de/', "").replace("/", '\\'),
                     NEWS_TITLE: news_teaser["title"]
                 })
-        self.article_info.update(NEWS_COUNT, str(self.article_info.track_content[NEWS_REFERENCES].__len__()))
-        print(self.article_info.get_track_content(clear=False))
-        return self.article_info.get_track_content(clear=False)
-
-
-if __name__ == "__main__":
-    url = "https://www.zeit.de/"
-    page = requests.get(str(url))
-    parser = ZeitOnlineParserNews(str(page.text), verbose=True).parse()
-    print(parser)
+        self.news_info.update(NEWS_COUNT, str(self.news_info.track_content[NEWS_REFERENCES].__len__()))
+        print(self.news_info.get_track_content(clear=False))
+        return self.news_info.get_track_content(clear=False)

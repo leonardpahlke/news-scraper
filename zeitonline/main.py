@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from zeitonline.article import ZeitOnlineParserArticle
 import requests
 
+from zeitonline.comments import ZeitOnlineParserComments
 from zeitonline.news import ZeitOnlineParserNews
 from zeitonline.util import TYPE_ARTICLE, TYPE_COMMENTS, TYPE_NEWS
 
@@ -27,8 +28,19 @@ def run(parse_type="", path="", verbose=True):
                 print("article found")
             return ZeitOnlineParserArticle(str(article), verbose).parse()
     elif parse_type == TYPE_COMMENTS:
-        print("WARNING Not yet supported")
-        return {'error': "REQUEST ERROR -> Not yet supported"}
+        if path == "":
+            print("REQUEST ERROR -> PATH IS AN EMPTY STRING")
+            return {'error': "REQUEST ERROR -> PATH IS AN EMPTY STRING"}
+        else:
+            url = URL_ZEIT_ONLINE + path
+            url = url.replace('"', "")
+            page = requests.get(str(url))
+            soup = BeautifulSoup(str(page.text), 'html.parser')
+            comments = soup.find(
+                "div", {"class": "comment-section__body"})
+            if not verbose:
+                print("comments found")
+            return ZeitOnlineParserComments(str(comments), verbose).parse()
     elif parse_type == TYPE_NEWS:
         page = requests.get(URL_ZEIT_ONLINE)
         return ZeitOnlineParserNews(str(page.text), verbose).parse()

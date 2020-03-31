@@ -36,6 +36,7 @@ docker build -t news-scraper .
 # start container
 docker run -it --rm -p 8080:8080 news-scraper   
 ```
+http://0.0.0.0:8080/docs
 
 ## Request API
 There are multiple ways to send requests to the api

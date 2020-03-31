@@ -40,6 +40,7 @@ uvicorn api:app --host 0.0.0.0 --port 8080
 ## Request API
 There are multiple ways to send requests to the api
 
+**Articles**
 zeit-online url example: https://www.zeit.de/politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern
 
 1. '/article/{category}/{sub_category}/{title}/{date}'
@@ -51,8 +52,21 @@ zeit-online url example: https://www.zeit.de/politik/ausland/2020-03/donald-trum
     - url = "politik\ausland\2020-03\donald-trump-coronavirus-wirtschaft-usa-ostern"
 3. '/test'
 
-## Response [Donald Trump Article](https://www.zeit.de/politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern)
+**Comments**
+1. '/comments/{category}/{sub_category}/{title}/{date}'
+    - category = politik
+    - sub_category = ausland
+    - title = donald-trump-coronavirus-wirtschaft-usa-ostern
+    - date = 2020-03
+2. '/comments/{url}'
+    - url = "politik\ausland\2020-03\donald-trump-coronavirus-wirtschaft-usa-ostern"
+    
+**News**
+1. '/news'
+
+## Article Response [Donald Trump Article](https://www.zeit.de/politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern)
 ```javascript
+// article information
 {
   "title": "Gefaehrlicher Eigensinn",
   "sub_title": "Donald Trump",
@@ -74,6 +88,40 @@ Article response positions:
 - article_text: str
 
 Article vary from one and another. Empty positions will be ignored and will not be listed in the response (like source: "" in the example above)
+
+## Comments Response
+```javascript
+// work in progress
+```
+Comments response positions: 
+- todo: str
+
+## News Response
+```javascript
+{
+  "news_count": "51",
+  "news_references": [
+   {
+      "link": "https://www.zeit.de/politik/ausland/2020-03/praesidentschaftswahl-polen-pis-coronavirus-pandemie",
+      "link_contents": "politik\\ausland\\2020-03\\praesidentschaftswahl-polen-pis-coronavirus-pandemie",
+      "news_title": "Präsidentschaftswahl in Polen - Der Wahl-Kampf"
+   },
+   {
+      "link": "https://www.zeit.de/politik/ausland/2020-03/viktor-orban-ungarn-notstand-coronavirus-eu",
+      "link_contents": "politik\\ausland\\2020-03\\viktor-orban-ungarn-notstand-coronavirus-eu",
+      "news_title": "Viktor Orbán - Grüne und SPD fordern zum Eingreifen in Ungarn auf"
+   },
+   {...}
+   ]
+}
+```
+News response positions: 
+- news_count: str
+- news_references: [
+    - link: str
+    - link_contents: str
+    - news_title: str
+]
 
 Test for yourself by following the steps under **How to use -> Use local**
 ## Future plans

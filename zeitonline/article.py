@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from zeitonline.util import TITLE, SUB_TITLE, SUMMARY, RELEASE, SOURCE, AUTHOR, COMMENTS_COUNT, ARTICLE_TEXT, \
+from zeitonline.util import ARTICLE_TITLE, ARTICLE_SUB_TITLE, ARTICLE_SUMMARY, ARTICLE_RELEASE, ARTICLE_SOURCE, ARTICLE_AUTHOR, ARTICLE_COMMENTS_COUNT, ARTICLE_ARTICLE_TEXT, \
     WebsiteInformation
 
 
@@ -11,14 +11,14 @@ class ZeitOnlineParserArticle:
         self.verbose = verbose
         self.soup = BeautifulSoup(html_document, 'html.parser')
         self.article_info = WebsiteInformation(verbose, [
-            TITLE,
-            SUB_TITLE,
-            SUMMARY,
-            RELEASE,
-            SOURCE,
-            AUTHOR,
-            COMMENTS_COUNT,
-            ARTICLE_TEXT
+            ARTICLE_TITLE,
+            ARTICLE_SUB_TITLE,
+            ARTICLE_SUMMARY,
+            ARTICLE_RELEASE,
+            ARTICLE_SOURCE,
+            ARTICLE_AUTHOR,
+            ARTICLE_COMMENTS_COUNT,
+            ARTICLE_ARTICLE_TEXT
         ])
         if not self.verbose:
             print("Article Parser setup\n")
@@ -34,12 +34,12 @@ class ZeitOnlineParserArticle:
         self.soup = BeautifulSoup(str(header_html), 'html.parser')
 
         header_parse_information = [
-            (SUB_TITLE, "span", "article-heading__kicker"),
-            (TITLE, "span", "article-heading__title"),
-            (SUMMARY, "div", "summary"),
-            (RELEASE, "time", "metadata__date"),
-            (SOURCE, "span", "metadata__source"),
-            (COMMENTS_COUNT, "a", "metadata__commentcount")
+            (ARTICLE_SUB_TITLE, "span", "article-heading__kicker"),
+            (ARTICLE_TITLE, "span", "article-heading__title"),
+            (ARTICLE_SUMMARY, "div", "summary"),
+            (ARTICLE_RELEASE, "time", "metadata__date"),
+            (ARTICLE_SOURCE, "span", "metadata__source"),
+            (ARTICLE_COMMENTS_COUNT, "a", "metadata__commentcount")
         ]
         # get position
         parsed_tags_content = [(name, self.soup.find(tag, {clazz}))
@@ -49,7 +49,7 @@ class ZeitOnlineParserArticle:
         is_author = self.soup.find(
             attrs={"data-ct-row": "author"})
         if is_author is not None:
-            self.article_info.update(AUTHOR, self.soup.find(
+            self.article_info.update(ARTICLE_AUTHOR, self.soup.find(
                 attrs={"itemprop": "name"}), True)
         # update positions
         for parsed_id, parsed_txt in parsed_tags_content:
@@ -70,7 +70,7 @@ class ZeitOnlineParserArticle:
 
         # update article text
         self.article_info.update(
-            ARTICLE_TEXT, ' '.join("".join(article_text_with_spaces).split()), False)
+            ARTICLE_ARTICLE_TEXT, ' '.join("".join(article_text_with_spaces).split()), False)
 
         if not self.verbose:
             print("ARTICLE INFO START \n\n\n\n")

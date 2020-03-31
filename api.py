@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from zeitonline.main import run
-from zeitonline.util import TYPE_ARTICLE
+from zeitonline.util import TYPE_ARTICLE, TYPE_NEWS
 
 app = FastAPI()
 
@@ -41,10 +41,23 @@ def article(url: str):
 # ? category, sub_category,  title
 @app.get("/test")
 def test():
-    return _article(path="politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern", verbose=False)
+    return _article(path="politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern", verbose=False)# ? category, sub_category,  title
+
+
+@app.get("/news")
+def news():
+    return run(parse_type=TYPE_NEWS)
 
 
 def _article(path="", verbose=True, url=""):
+    content = run(parse_type=TYPE_ARTICLE, path=path, verbose=verbose)
+    if not verbose:
+        print("\nAPI.PY ARTICLE INFORMATION\n\n")
+        print(content)
+    return content
+
+
+def _news(path="", verbose=True, url=""):
     content = run(parse_type=TYPE_ARTICLE, path=path, verbose=verbose)
     if not verbose:
         print("\nAPI.PY ARTICLE INFORMATION\n\n")

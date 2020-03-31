@@ -124,7 +124,3 @@ News response positions:
 ]
 
 Test for yourself by following the steps under **How to use -> Use local**
-## Future plans
-- other websites (spiegel-online, faz)
-- get article comments as well
-- fetch articles from main page 

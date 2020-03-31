@@ -6,21 +6,21 @@ Get Articles and comments from zeitonline. API and Parser in a Docker container.
 
 ## How to use
 **Use local**
-```python
-# setup python virtual enviorment
+```javascript
+// setup python virtual enviorment
 python3 -m venv /path/to/new/virtual/environment
-# activate venv
+// activate venv
 source venv/bin/activate
-# install packages
+// install packages
 pip install -r requirements.txt
 
-# start localhost with uvicorn
+// start localhost with uvicorn
 uvicorn api:app --port 8080 --reload
 ```
 http://127.0.0.1:8080/docs
 
-```python
---reload # updates server resources when code changes are made
+```javascript
+--reload // updates server resources when code changes are made
 ```
 
 you can specify also a host with --host 0.0.0.0
@@ -30,10 +30,10 @@ uvicorn api:app --host 0.0.0.0 --port 8080
 further api config information can be found on the [fastapi website](https://fastapi.tiangolo.com/)
 
 **Start Docker**
-```python
-# build container
+```javascript
+// build container
 docker build -t news-scraper .  
-# start container
+// start container
 docker run -it --rm -p 8080:8080 news-scraper   
 ```
 http://0.0.0.0:8080/docs
@@ -53,7 +53,7 @@ zeit-online url example: https://www.zeit.de/politik/ausland/2020-03/donald-trum
 3. '/test'
 
 ## Response [Donald Trump Article](https://www.zeit.de/politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern)
-```python
+```javascript
 {
   "title": "Gefaehrlicher Eigensinn",
   "sub_title": "Donald Trump",

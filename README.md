@@ -17,14 +17,7 @@ pip install -r requirements.txt
 // start localhost with uvicorn
 uvicorn api:app --port 8080 --reload
 // open browser -> http://127.0.0.1:8080/docs
-
-// Info
---reload // updates server resources when code changes are made
-
-// you can specify also a host with --host 0.0.0.0
-uvicorn api:app --host 0.0.0.0 --port 8080
 ```
-further information can be found on the [fastapi website](https://fastapi.tiangolo.com/)
 
 **Start Docker**
 ```javascript
@@ -33,6 +26,15 @@ docker build -t news-scraper .
 // start container
 docker run -it --rm -p 8080:8080 news-scraper
 // open browser -> http://0.0.0.0:8080/docs   
+```
+
+###FastAPI Info
+information can be found on the [fastapi website](https://fastapi.tiangolo.com/) as well as the [github project](https://github.com/tiangolo/fastapi)
+```javascript
+--reload // updates server resources when code changes are made
+
+// you can specify also a host with --host 0.0.0.0
+uvicorn api:app --host 0.0.0.0 --port 8080
 ```
 
 ## Request API

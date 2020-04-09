@@ -19,21 +19,19 @@ class ZeitOnlineParserComments:
     def parse(self):
         return self.comments_info.get_track_content()
 
-if __name__ == "__main__":
-    from requests_html import HTMLSession
 
+if __name__ == "__main__":
     url = "https://www.zeit.de/politik/ausland/2020-03/praesidentschaftswahl-polen-pis-coronavirus-pandemie"
 
+    from selenium import webdriver
+    from selenium.webdriver.common.keys import Keys
 
-    def render_JS(URL):
-        session = HTMLSession()
-        r = session.get(URL)
-        r.html.render()
-        print(r.html.text)
-        return r.html.text
-
-
-    render_JS(url)
-
-    # page = requests.get(url)
-    # print(ZeitOnlineParserComments(str(page.text), False).parse())
+    driver = webdriver.Firefox()
+    driver.get(url)
+    # assert "Python" in driver.title
+    elem = driver.find_element_by_name("a")
+    elem.clear()
+    elem.send_keys("pycon")
+    elem.send_keys(Keys.RETURN)
+    assert "No results found." not in driver.page_source
+    driver.close()

@@ -66,3 +66,5 @@ def _news(path="", verbose=True, url=""):
 
 # uvicorn api:app --reload
 # http://localhost:8080/article/politik/ausland/donald-trump-coronavirus-wirtschaft-usa-ostern/2020-03
+# http://scrapingauthority.com/scrapy-javascript
+# https://selenium-python.readthedocs.io/

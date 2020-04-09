@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 from zeitonline.util import WebsiteInformation, NEWS_LINK, NEWS_LINK_CONTENTS, NEWS_TITLE, NEWS_REFERENCES, NEWS_COUNT
-import requests
 
 
 # parse html string document -> staring with the <article> tag of a website. Store parsed data in
@@ -31,6 +30,10 @@ class ZeitOnlineParserNews:
                     NEWS_LINK_CONTENTS: news_teaser["href"].replace('https://www.zeit.de/', "").replace("/", '\\'),
                     NEWS_TITLE: news_teaser["title"]
                 })
+        # set collected news to output
         self.news_info.update(NEWS_COUNT, str(self.news_info.track_content[NEWS_REFERENCES].__len__()))
-        print(self.news_info.get_track_content(clear=False))
+
+        if self.verbose:
+            print(self.news_info.get_track_content(clear=False))
+
         return self.news_info.get_track_content(clear=False)

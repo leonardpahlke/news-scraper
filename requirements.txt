@@ -3,4 +3,3 @@ requests
 fastapi
 pydantic
 uvicorn
-requests_html

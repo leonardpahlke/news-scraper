@@ -34,14 +34,15 @@ def article(category: str, sub_category: str, title: str, date: str):
 # ? zeit-online url
 @app.get("/article/{url}")
 def article(url: str):
-    url = url.replace("\\", "/")
+    url = url.replace(",", "/")
+    print(url)
     return _article(path=url)
 
 
 # ? category, sub_category,  title
 @app.get("/test")
 def test():
-    return _article(path="politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern", verbose=False)# ? category, sub_category,  title
+    return _article(path="politik/ausland/2020-03/donald-trump-coronavirus-wirtschaft-usa-ostern", verbose=False)
 
 
 @app.get("/news")
@@ -50,14 +51,6 @@ def news():
 
 
 def _article(path="", verbose=True, url=""):
-    content = run(parse_type=TYPE_ARTICLE, path=path, verbose=verbose)
-    if not verbose:
-        print("\nAPI.PY ARTICLE INFORMATION\n\n")
-        print(content)
-    return content
-
-
-def _news(path="", verbose=True, url=""):
     content = run(parse_type=TYPE_ARTICLE, path=path, verbose=verbose)
     if not verbose:
         print("\nAPI.PY ARTICLE INFORMATION\n\n")

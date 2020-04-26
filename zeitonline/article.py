@@ -62,8 +62,9 @@ class ZeitOnlineParserArticle:
         body_text_paragraphs = self.soup.find_all(
             "p", {"paragraph article__item"})
         # concat paragraph text
-        article_text_with_spaces = [paragraph.text.replace(
-            "\n", "").strip() for paragraph in body_text_paragraphs]
+        article_text_with_spaces = [paragraph.text
+                                        .replace("\n", "")
+                                        .strip() for paragraph in body_text_paragraphs]
 
         if not self.verbose:
             print("\nInformation is scraped\n")
@@ -76,4 +77,7 @@ class ZeitOnlineParserArticle:
             print("ARTICLE INFO START \n\n\n\n")
             self.article_info.print_information()
             print("ARTICLE INFO END \n\n\n\n")
-        return self.article_info.get_track_content()
+        return self.article_info.get_track_content(clear=False)
+
+    def addResource(self):
+        pass

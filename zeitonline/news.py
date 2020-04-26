@@ -5,16 +5,20 @@ from zeitonline.util import WebsiteInformation, NEWS_LINK, NEWS_LINK_CONTENTS, N
 # parse html string document -> staring with the <article> tag of a website. Store parsed data in
 # WebsiteInformation class Returns: WebsiteInformation Object -- get WebsiteInformation
 class ZeitOnlineParserNews:
+    # news online reponse structure
+    zeit_news = {}
+
+    # constructor
     def __init__(self, html_document, verbose):
         self.verbose = verbose
+        # link scrapper libary to html_document
+        self.zeit_news = {
+        NEWS_COUNT: "",
+        NEWS_REFERENCES: []
+    }
         self.soup = BeautifulSoup(html_document, 'html.parser')
-        self.news_info = WebsiteInformation(verbose, [
-            NEWS_COUNT,
-            NEWS_REFERENCES
-        ])
-        self.news_info.track_content[NEWS_REFERENCES] = []
         if not self.verbose:
-            print("News Parser setup\n")
+            print("Start news parsing - \n" + str(self.zeit_news))
 
     # start parsing the website Returns: return WebsiteInformation -- parse website new articles and store all found
     # information in the WebsiteInformation class
@@ -23,17 +27,24 @@ class ZeitOnlineParserNews:
             "a", {"class": "zon-teaser-standard__combined-link"})  # this html a contains all teaser article links
         news_collected = []
         for news_teaser in news:
-            if ("liveblog" not in news_teaser["href"]) & (not news_collected.__contains__(news_teaser["href"])):
+            # exclude schach, sodoku and liveblog posts
+            if ("liveblog" not in news_teaser["href"]) and \
+                    (not news_collected.__contains__(news_teaser["href"]) and
+                     ("http://schach.zeit.de/" not in news_teaser["href"]) and
+                     ("https://sudoku.zeit.de/" not in news_teaser["href"])):
+                # add link to local list
                 news_collected.append(news_teaser["href"])
-                self.news_info.track_content[NEWS_REFERENCES].append({
-                    NEWS_LINK: news_teaser["href"],
-                    NEWS_LINK_CONTENTS: news_teaser["href"].replace('https://www.zeit.de/', "").replace("/", '\\'),
-                    NEWS_TITLE: news_teaser["title"]
-                })
-        # set collected news to output
-        self.news_info.update(NEWS_COUNT, str(self.news_info.track_content[NEWS_REFERENCES].__len__()))
+                # store news info in response dict
+                self.addResource(news_teaser["href"],
+                                 news_teaser["href"].replace('https://www.zeit.de/', "").replace("/", ','),
+                                 news_teaser["title"])
 
-        if self.verbose:
-            print(self.news_info.get_track_content(clear=False))
+        self.zeit_news[NEWS_COUNT] = self.zeit_news[NEWS_REFERENCES].__len__()
+        return self.zeit_news
 
-        return self.news_info.get_track_content(clear=False)
+    def addResource(self, articleLink, articleLinkContents, articleTitle):
+        self.zeit_news[NEWS_REFERENCES].append({
+            NEWS_LINK: articleLink,
+            NEWS_LINK_CONTENTS: articleLinkContents,
+            NEWS_TITLE: articleTitle
+        })

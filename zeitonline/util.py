@@ -3,6 +3,7 @@ TYPE_COMMENTS = "type_comments"
 TYPE_NEWS = "type_news"
 
 # article constants
+ARTICLE_URL = "url"
 ARTICLE_TITLE = "title"
 ARTICLE_SUB_TITLE = "sub_title"
 ARTICLE_SUMMARY = "summary"
@@ -30,6 +31,7 @@ class WebsiteInformation:
     def __init__(self, verbose, variables: list):
         self.verbose = verbose
         # set variables in track
+        self.track_content = {}
         for elem in variables:
             self.track_content[elem] = ""
 
